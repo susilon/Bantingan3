@@ -1,0 +1,54 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">YOU ARE HERE</li>
+  <li class="breadcrumb-item active">Basic CRUD</li>
+</ol>
+<div class="row">
+  <div class="col-lg-12">
+      <section class="widget">
+          <header>
+              <h5>
+                Basic <span class="fw-semi-bold">CRUD</span> - <small>Create, Read, Update, Delete</small>
+              </h5>
+              <small>Extra small description line</small>
+              <div class="widget-controls">
+                  <a href="{$baseUrl}/sampleform/basicform" class="btn btn-sm btn-default p-2" type="button"><i class="fa fa-plus"></i> Create New</a>
+              </div>
+          </header>
+          <div class="widget-body">
+            <table class="table table-responsive-sm">
+              <thead>
+                <tr>
+                  <th class="text-center" style="width: 7%;"><i class="fa fa-edit"></i></th>
+                  <!-- column company code will be hidden in mobile mode -->
+                  <th class="d-none d-md-block">Company</th>
+                  <th>Branch Name</th>
+                  <th>Is Active</th>
+                  <th>Address</th>                  
+                </tr>
+              </thead>
+              <tbody>
+              {foreach from=$listdata item=$data}
+              <tr>
+                <td class="text-center">
+                  <a class="btn btn-sm btn-default" href="{$baseUrl}/sampleform/basicform/{$data.id}"><i class="fa fa-edit"></i> Edit</a>
+                </td>
+                <td class="d-none d-md-block">({$data.compcode}) {$data.compname}</td> 
+                <!-- the branchcode info is hidden in mobile mode -->
+                <td><span class="d-none d-md-inline-block">{$data.branchcode} - </span>{$data.branchname}</td>
+                <td>{if $data.isactive=="1"}Active{else}Not Active{/if}</td>
+                <td>{$data.address}</td>
+              </tr>
+              {/foreach}                           
+              </tbody>
+            </table>
+          </div>
+      </section>
+  </div>
+</div>
+
+{/block}  
+{block name=scriptcontent}
+
+{/block}  

@@ -1,0 +1,95 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+<h3>Basic Send Email Demo</h3>
+Before sending email, you must configure your mailer account in config/web.config.yml, for example :<br>
+<pre>
+# SMTP account settings for sending mail
+mail_settings :
+  CharSet : UTF-8		
+  IsSMTP : true
+  IsHTML : true
+  SMTPDebug : 0
+  SMTPHost : smtp.gmail.com
+  SMTPAuth : true   
+  SMTPUsername : yourgmailaccount@gmail.com
+  SMTPPassword : your smtp password
+  SMTPSecure : tls
+  SMTPPort : 587
+  MailDefaultFromEmail : yourgmailaccount@gmail.com
+  MailDefaultFromName : Your Name
+  MailDefaultReplyEmail : yourgmailaccount@gmail.com
+  MailDefaultReplyName : Your Name
+</pre>
+<p>
+  For testing purpose, try <a href="https://mailtrap.io/" target="_mailtrap">MailTrap</a>, an Email Sandbox Service, that will capture all email from testing environment.
+</p>
+<div class="w-25">  
+  <form class="form-horizontal" role="form" id="form-email">     
+    <small>Sample Call API with jQuery AJAX, <br>please check this page source in views/Home/emaildemo.html</small>
+    <div class="form-group">        
+      <input type="text" id="email-field" class="form-control" placeholder="Recipient Email Address">
+    </div> 
+    <div class="form-group">
+      <button class="btn btn-default" id="send-email"><i class="fa fa-paper-plane"></i> Send Email</button>   
+      <small id="result-message"></small>    
+    </div>    
+  </form>    
+</div>
+{/block}  
+{block name=scriptcontent}
+<style>
+  /* using css to create rotation animation */
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+  .linear {
+    animation-timing-function: linear;
+  }
+  .infinite {
+    animation-iteration-count: infinite;
+  }
+  .rotate-image {
+    animation: rotation 2s linear infinite;
+  }
+</style>
+<script>
+  $(document).ready( function () {
+    $("#form-email").on("submit", function(e) {
+      e.preventDefault();    
+      // clear previous message
+      $("#result-message").text('');
+
+      // change icon to rotating icon
+      $("#send-email").find(".fa").removeClass("fa-paper-plane");
+      $("#send-email").find(".fa").addClass("fa-circle-o-notch");
+      $("#send-email").find(".fa").addClass("rotate-image");
+
+      // call API to send email
+      $.post( "{$baseUrl}/api/sendemaildemo", { recipient_email : $("#email-field").val() }, function( data ) {
+        // change icon back to original icon
+        $("#send-email").find(".fa").removeClass("rotate-image");
+        $("#send-email").find(".fa").removeClass("fa-circle-o-notch");
+        $("#send-email").find(".fa").addClass("fa-paper-plane");
+
+        if (data.success) {
+          $("#result-message").text(data.messages);
+          $("#result-message").addClass('text-success');
+        } else {
+          $("#result-message").text(data.messages);
+          $("#result-message").addClass('text-danger');
+        }
+        
+      })
+      .fail(function() {
+        alert( "error calling API" );
+      });      
+      return false;
+    });    
+  });
+</script>
+{/block}  

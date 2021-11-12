@@ -1,0 +1,12 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+This is a demonstration for converting HTML into PDF,<br>
+please check the HTML documents in views/Demo/htmldocument.html<br>
+<hr>
+<a href="{$baseUrl}/demo/pdfdemo?html=true" target="_pdfdemo">Click Here to View Original HTML file</a><br>
+<a href="{$baseUrl}/demo/pdfdemo?view=true" target="_pdfdemo">Click Here to View PDF File</a><br>
+<a href="{$baseUrl}/demo/pdfdemo?file=true">Click Here to Download PDF File</a>
+{/block}  
+{block name=scriptcontent}
+
+{/block}  

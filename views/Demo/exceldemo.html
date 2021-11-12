@@ -1,0 +1,11 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+This is a demonstration for converting HTML into Excel,<br>
+please check the HTML documents in views/Demo/htmltabledemo.html<br>
+<hr>
+<a href="{$baseUrl}/demo/exceldemo?html=true" target="_exceldemo">Click Here to View Original HTML file</a><br>
+<a href="{$baseUrl}/demo/exceldemo?xls=true">Click Here to Download Excel File</a>
+{/block}  
+{block name=scriptcontent}
+
+{/block}  

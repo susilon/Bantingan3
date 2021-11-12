@@ -1,0 +1,188 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">YOU ARE HERE</li>
+  <li class="breadcrumb-item"><a href="{$baseUrl}/sampleform/basic">Basic CRUD</a></li>
+  <li class="breadcrumb-item active">Form</li>
+</ol>
+<div class="row">
+  <div class="col-lg-7">
+	<section class="widget">
+    <header>
+        <h6>
+            Form Title
+        </h6>
+        <div class="widget-controls">
+            <a href="#"><i class="la la-cog"></i></a>
+            <a href="#"><i class="la la-refresh"></i></a>
+            <a href="#" data-widgster="close"><i class="la la-remove"></i></a>
+        </div>
+    </header>
+    <div class="widget-body">
+        <form class="form-horizontal" role="form" method="POST" action="{$baseUrl}/sampleform/basicformsave">
+            <fieldset>
+                <legend><strong>Form</strong> sub title<br>
+                  <small>Sample of some input styling</small>
+                  <div class="{$resultMessage.class}">{$resultMessage.message}</div>
+                </legend>
+                <div class="form-group row">
+                    <label for="normal-field" class="col-md-4 form-control-label text-md-right">Comp Code</label>
+                    <div class="col-md-7">
+                        <input type="text" id="normal-field" class="form-control" placeholder="With placeholder" name="compcode" value="{$data.compcode}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-4 control-label text-md-right" for="disabled-input">Comp Name</label>
+                  <div class="col-md-7">
+                      <input type="text" id="disabled-input" class="form-control" disabled="disabled" name="compname" value="{$data.compname}">
+                  </div>
+              </div> 
+                <div class="form-group row">
+                  <label class="col-md-4 control-label text-md-right" for="max-length">Branch Code</label>
+                  <div class="col-md-7">
+                      <input type="text" id="max-length" maxlength="3" class="form-control"
+                          placeholder="Max length 3 characters" data-placement="top"
+                          data-original-title="You cannot write more than 3 characters." name="branchcode" value="{$data.branchcode}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <labelf for="hint-field" class="col-md-4 control-label text-md-right">
+                        Branch Name
+                        <span class="help-block">With some help text</span>
+                    </labelf>
+                    <div class="col-md-7">
+                        <input type="text" id="hint-field" class="form-control" name="branchname" value="{$data.branchname}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-4  col-form-label text-md-right" for="transparent-input">
+                      Address
+                  </label>
+                  <div class="col-md-7 ">
+                      <div class="input-group">
+                        <textarea rows="4" class="form-control" id="default-textarea" name="address" placeholder="Text Area Sample">{$data.address}</textarea>
+                      </div>
+                  </div>  
+                </div>
+                <div class="form-group row">
+                  <label for="simple-select" class="col-md-4 control-label text-md-right" for="simple-select">Is Active</label>
+                  <div class="col-md-7">
+                      <select class="selectpicker" data-style="btn-default" data-width="auto" tabindex="-1"
+                          id="simple-select" name="isactive">
+                          <option class="dropdown-item" value="0" {if $data.isactive == "0"}selected="selected"{/if}>No</option>
+                          <option class="dropdown-item" value="1" {if $data.isactive == "1"}selected="selected"{/if}>Yes</option>
+                      </select>
+                      <span class="help-block">With help text below input</span>
+                  </div>
+                </div>               
+                <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="prepended-input">Admin User</label>
+                    <div class="col-md-7 ">
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </span>
+                            <input id="prepended-input" class="form-control" size="16" type="text"
+                                placeholder="Username" name="username" value="{$data.username}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="password-field">Password</label>
+                    <div class="col-md-7 ">
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </span>
+                            <input type="password" class="form-control" id="password-field"
+                                placeholder="Password" name="password">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="appended-input">Sales Target</label>
+                    <div class="col-md-7 ">
+                        <div class="input-group">
+                            <input id="appended-input" class="form-control" size="16" type="text" name="salestarget" value="{$data.salestarget}">
+                            <span class="input-group-append">
+                                <span class="input-group-text">
+                                    .00
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4  col-form-label text-md-right" for="combined-input">Amount</label>
+                    <div class="col-md-7 ">
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text">Rp</span>
+                            </span>
+                            <input id="combined-input" class="form-control" size="16" type="text" name="salesamount" value="{$data.salesamount}">
+                            <span class="input-group-append">
+                                <span class="input-group-text">
+                                    .00
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>                
+            </fieldset>
+            <div class="form-actions bg-transparent">
+                <div class="row">
+                    <div class="offset-md-4 col-md-7 col-12">                        
+                        <input id="data-id" type="hidden" name="id" value="{$data.id}">
+                        <button type="submit" class="btn btn-primary m-3" name="form-submit" value="submit">Save {if $data.id > 0}Changes{else}New{/if}</button>
+                        <button type="button" class="btn btn-inverse" onclick="javascript:window.history.back();">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </section>
+  </div>
+<div class="col-lg-5">
+	<section class="widget d-none d-md-block">
+    <header>
+        <h6>
+            You can put extra information here
+        </h6>
+        <div class="widget-controls">
+            <a href="#"><i class="la la-cog"></i></a>
+            <a href="#"><i class="la la-refresh"></i></a>
+            <a href="#" data-widgster="close"><i class="la la-remove"></i></a>
+        </div>
+    </header>
+    <div class="widget-body">
+      This widget will be hidden in mobile mde
+    </div>
+  </section>
+  <section class="widget">
+    <header>
+        <h6>
+            This one will be visible in mobile mode
+        </h6>
+        <div class="widget-controls">
+            <a href="#"><i class="la la-cog"></i></a>
+            <a href="#"><i class="la la-refresh"></i></a>
+            <a href="#" data-widgster="close"><i class="la la-remove"></i></a>
+        </div>
+    </header>
+    <div class="widget-body">
+      Simple isn't it?<br>
+      For more form sample and elements, <br>
+      please check <a target="_singapp" href="https://templates-flatlogic.herokuapp.com/sing-app/html5/form/form_elements.html">SingApp Form Demo</a>
+    </div>
+  </section>
+  </div>
+</div>
+{/block}  
+{block name=scriptcontent}
+<!-- Bootstrap Select -->
+<script src="{$baseUrl}/assets/singapp/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+{/block}  

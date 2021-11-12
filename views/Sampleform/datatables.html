@@ -1,0 +1,121 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">YOU ARE HERE</li>
+  <li class="breadcrumb-item active">Datables GRID</li>
+</ol>
+<div class="row">
+  <div class="col-lg-12">
+      <section class="widget">
+          <header>
+              <h5>
+                Datables <span class="fw-semi-bold">AJAX</span>
+              </h5>
+              <small>This page using <a href="https://www.datatables.net" target="_datatables" >Datatables.net</a> grid with AJAX</small>
+              <div class="widget-controls">
+                  <a href="{$baseUrl}/sampleform/basicform" class="btn btn-sm btn-default p-2" type="button"><i class="fa fa-plus"></i> Create New</a>
+              </div>
+          </header>
+          <div class="widget-body">
+            <table class="table table-responsive-sm w-100">
+              <!-- we only define header here -->
+              <thead>
+                <tr>
+                  <th class="text-center" style="width: 10%;"><i class="fa fa-edit"></i></th>
+                  <!-- column company code will be hidden in mobile mode -->
+                  <th class="d-none d-md-block">Company</th>
+                  <th>Branch Name</th>
+                  <th>Is Active</th>
+                  <th>Address</th>                  
+                </tr>
+              </thead>
+            </table>
+          </div>
+      </section>
+  </div>
+</div>
+
+{/block}  
+{block name=scriptcontent}
+<!-- Datatables -->
+<script src="{$baseUrl}/assets/vendors/datatables/js/jquery.dataTables.js"></script>
+<link href="{$baseUrl}/assets/vendors/datatables/css/jquery.dataTables.css" rel="stylesheet">
+<!-- Bootstrap Select -->
+<script src="{$baseUrl}/assets/singapp/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+<style>
+  /* fixing datatables style to match our template */
+  table.dataTable thead th, table.dataTable thead td {
+    border-bottom: none;
+  }
+  table.dataTable.no-footer {
+    border-bottom: 1px solid #d6dee5;
+  }
+  div.dataTables_filter input {
+    border: 1px solid #c1ccd3;
+    border-radius: .3rem;
+    padding: .3rem;
+  }
+  div.dataTables_filter input:focus {
+    border: 1px solid #5abbf7;
+  }
+  div.dataTables_paginate span .paginate_button {
+    border: none !important;
+    border-radius: .3rem !important;
+    margin: 0 2px !important;    
+    background: #d6dee5 !important;
+    color: #3c484f !important;
+    padding: .5rem .75rem !important;    
+  }
+</style>
+<script>
+  $(document).ready( function () {
+    // load datatables
+    $('.table').DataTable({
+      ajax: {
+        // ajax data source
+        url: '{$baseUrl}/sampleform/datatablesdata',
+        method: 'POST'
+      },
+      order: [[1, 'asc']],
+      columns: [
+        // map data to columns in the grid
+          { 
+            data: "id",
+            orderable: false,
+            render: function ( data, type, row ) {         
+              // edit button     
+              return `<a class="btn btn-sm btn-default" href="{$baseUrl}/sampleform/basicform/${ data }"><i class="fa fa-edit"></i> Edit</a>`;
+            }
+          },
+          { data: 'compcode', 
+            class: "d-none d-md-block", // hidden in mobile column
+            render: function ( data, type, row ) {
+              // composite data
+              return `(${ data }) ${ row.compname }`;
+            }
+          },
+          { data: 'branchname',
+            render: function ( data, type, row ) {    
+              // add mobile hidden info
+              return `<span class="d-none d-md-inline-block">${ row.branchcode } - </span>${ data }`;
+            }
+          },
+          { data: 'isactive',            
+            render : function (data, type, row) {
+              // replace value with description
+              return data == 1?"Active":"Not Active "; 
+            }
+          },
+          { data: 'address' }
+      ],
+      initComplete: function( settings, json ) {
+        // fixing page_length style to match our template 
+       $("div.dataTables_length select").selectpicker({
+         width: 'auto'
+       });
+      }
+    });
+  });  
+</script>
+{/block}  
