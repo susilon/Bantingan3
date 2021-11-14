@@ -26,6 +26,31 @@ require 'vendor/autoload.php';
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
+// ENV reader helper
+function envVariableMapping($oldvalue, $newvalue) {
+	if (is_array($oldvalue)) {
+		foreach ($oldvalue as $key => $value) {
+			$oldvalue[$key] = envVariableMapping($value, $newvalue[$key]??$value);
+		}	
+	} else {
+		$oldvalue = $newvalue;
+	}
+	
+	return $oldvalue;
+}
+
+function configFromEnv($key, $config) {		
+	$newconfig = getenv("BANTINGAN3_".strtoupper($key));
+	if ($newconfig != false) {
+		$newconfig = json_decode($newconfig, true);
+		foreach ($newconfig as $key => $newvalue) {
+			$config[$key] = envVariableMapping($config[$key], $newvalue??$config[$key]);
+		}				
+	} 
+	
+	return $config;
+}
+
 // load configuration
 try {
 	$webconfigfile = @file_get_contents(__DIR__ .'/../config/web.config.yml');
@@ -38,7 +63,7 @@ try {
 	if (!isset($webconfig)) {
 		exit("Configuration File Error");
 	}
-	
+
 	foreach ($webconfig as $key => $settings) {
 		if ($key == 'load_settings' ) {
 			foreach ($settings as $settingsname => $settingsfile) {
@@ -46,13 +71,19 @@ try {
 				if ($settingscontent === FALSE) {
 					exit("Additional Configuration File Not Found: ".$settingsfile);
 				}
-				$settingsvalue = Yaml::parse($settingscontent);		
-				define(strtoupper($settingsname), $settingsvalue);
+				$settingsvalue = null;
+				$settingsvalue = Yaml::parse($settingscontent);
+				// read from environment variables
+				$settingsvalue = configFromEnv($settingsname, $settingsvalue);
+				// or read from files				
+				define(strtoupper($settingsname), $settingsvalue); 
 			}	
-		} else {
+		} else {			
+			// read from environment variables
+			$settings = configFromEnv($key, $settings);			
 			define(strtoupper($key), $settings);
-		}	
-	}
+		}
+	}		
 } catch (ParseException $exception) {    
 	exit('Unable to parse the config file: '.$exception->getMessage());
 }

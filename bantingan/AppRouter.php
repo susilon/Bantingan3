@@ -108,16 +108,19 @@ sample route.config
 		}
 	
 		$routes->add('default', new Route('/{controller}/{action}/{parameters}',// path
-		    array('controller' => 'home', 'action' => 'index', 'parameters' => null), // default values	
+		    //array('controller' => 'home', 'action' => 'index', 'parameters' => null), // default values	
+				array('controller' => strtolower(APPLICATION_SETTINGS["DefaultController"]), 'action' => 'index', 'parameters' => null), // default values	
 		    array('parameters'=>'.*') // requirements
 		));
 
 		$routes->add('method', new Route('/{controller}/',// path
-		    array('controller' => 'home', 'action' => 'index', 'parameters' => null) // default values		
+		    //array('controller' => 'home', 'action' => 'index', 'parameters' => null) // default values		
+				array('controller' => strtolower(APPLICATION_SETTINGS["DefaultController"]), 'action' => 'index', 'parameters' => null) // default values		
 		));		
 
 		$routes->add('home', new Route('/',// path
-		    array('controller' => 'home', 'action' => 'index', 'parameters' => null) // default values		
+		    //array('controller' => 'home', 'action' => 'index', 'parameters' => null) // default values		
+				array('controller' => strtolower(APPLICATION_SETTINGS["DefaultController"]), 'action' => 'index', 'parameters' => null) // default values		
 		));
 
 		if (!empty(APPLICATION_SETTINGS["BaseUrl"])) {

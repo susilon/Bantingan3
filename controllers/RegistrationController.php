@@ -150,7 +150,7 @@ class RegistrationController extends Base\UserController
 
 		if ($flashmsg == null) {
 			$errors = count($login->errors)>0?true:false;
-			$redirect = count($login->errors)>0?true:count($login->messages)>0?true:false;
+			$redirect = (count($login->errors)>0?true:count($login->messages)>0)?true:false;
 			if ($redirect) {
 				$this->flash("messages", join("<br/>",$errors?$login->errors:$login->messages));
 				$this->flash("success",!$errors?count($login->messages)>0?true:false:false);

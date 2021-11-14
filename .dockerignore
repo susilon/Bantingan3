@@ -1,0 +1,13 @@
+#Ignore the template directory
+templates_c/
+
+#Ignoring git and cache folders
+.git
+.cache
+
+#Ignoring all the markdown
+*.md
+
+#Ignoring dockerfile
+Dockerfile
+.dockerignore

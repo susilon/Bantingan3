@@ -56,7 +56,7 @@ class Applications
 				$err = new \Exception('Resources Not Found.', 404);	
 				$this->errorHandler($err);
 			} else {
-				$this->controllername = 'Home';
+				$this->controllername = APPLICATION_SETTINGS["DefaultController"];//'Home';
 				$this->actionname = 'index';
 				$this->Start($this->route);	
 			}			
@@ -75,7 +75,7 @@ class Applications
 		    $this->controllername = $this->route["controller"];
 		} else {
 		    // use a default controller
-		    $this->controllername = 'Home';
+		    $this->controllername = APPLICATION_SETTINGS["DefaultController"];//'Home';
 		}
 		define("BANTINGAN_CONTROLLER_NAME", $this->controllername);
 

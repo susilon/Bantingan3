@@ -27,9 +27,10 @@ use Bantingan\Controller;
 
 class HomeController extends Controller
 {	
-	public function index($parameter=null)
+	public function index()
 	{	
-		$this->viewBag->data = "Welcome To Bantingan 3.0!";
+		// check out how we read value from settings
+		$this->viewBag->data = "Welcome To ".APPLICATION_SETTINGS["SiteTitle"];
 		$this->viewBag->pageTitle = "Home";
 		$this->viewBag->activeMenu = "menu-dashboard";
 		return $this->View();

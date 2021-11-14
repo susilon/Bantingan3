@@ -23,7 +23,7 @@
             <fieldset>
                 <legend><strong>Form</strong> sub title<br>
                   <small>Sample of some input styling</small>
-                  <div class="{$resultMessage.class}">{$resultMessage.message}</div>
+{if isset($resultMessage)}<div class="{$resultMessage.class}">{$resultMessage.message}</div>{/if}
                 </legend>
                 <div class="form-group row">
                     <label for="normal-field" class="col-md-4 form-control-label text-md-right">Comp Code</label>
