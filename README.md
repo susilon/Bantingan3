@@ -7,6 +7,12 @@ Open config/route.config.yml, to configure routing and path settings.<br>
 Open config/database.config.yml, to configure database connection.<br>
 or set value in Environment Variable (see Environment Variabel example below)
 
+### Database
+For demo purpose, please setup two database.<br>
+Just create new empty database for application, then set in <b>default</b> database settings.<br>
+For usermanagement demo, create new empty database for usermanagement, then run initial script that we provided in sample_usermanagement_database.sql file to create user table, set this database in <b>usermanagement</b> database settings.<br>
+
+
 ### Docker Image
 We provided Dockerfile, for Docker image building.<br>
 docker build -t image-tag-name .<br>
