@@ -144,7 +144,7 @@ class Model extends \RedBeanPHP\SimpleModel
             $tablename = $this->tablename;
         }
         if (isset($tablename)) { 
-            return R::findAll($tablename, $parameter, $parameterarray);            
+            return R::findAll($tablename, $parameter, $parameterarray);
         }
         throw new \Exception('Cannot find object, table name is unknown.', 50);                   
     } 
@@ -263,5 +263,13 @@ class Model extends \RedBeanPHP\SimpleModel
         }
 
         return $olddata;         
+    }
+
+    private function export($bean) {
+        return R::export($bean);
+    }
+
+    private function exportAll($listbean) {
+        return R::exportAll($listbean);
     }
 }

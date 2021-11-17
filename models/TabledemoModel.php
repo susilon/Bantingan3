@@ -8,8 +8,9 @@ class TabledemoModel extends Model
     // function with default value
     public function getdata($isactvice="notactive") {   
         $parameter = ($isactvice == "active")?1:0;
-        // select * from tabledemo where isactive=1 
-        return $this->getall("select * from tabledemo where isactive=?",[ $parameter ]); // binding parameter with query
+        // select * from tabledemo where isactive=1 order by id
+        $listdataactive = $this->findAll("isactive=? order by id",[ $parameter ]);
+        return $this->exportAll($listdataactive); // use exportAll to convert redbean listdata to array as datatables grid requirements
     }
 
     public function updatedata($postdata, $login) {                   
