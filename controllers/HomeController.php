@@ -33,6 +33,17 @@ class HomeController extends Controller
 		$this->viewBag->data = "Welcome To ".APPLICATION_SETTINGS["SiteTitle"];
 		$this->viewBag->pageTitle = "Home";
 		$this->viewBag->activeMenu = "menu-dashboard";
+
+		// checking required extension
+		$this->viewBag->extensioncheck = [
+			"mysqli" => extension_loaded('mysqli'),
+			"pdo" => extension_loaded('pdo'),
+			"gd" => extension_loaded('gd'),
+			"mbstring" => extension_loaded('mbstring'),
+			"zip" => extension_loaded('zip'),
+			"mcrypt" => extension_loaded('mcrypt')
+		];		
+
 		return $this->View();
 	}		
 

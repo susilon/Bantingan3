@@ -13,6 +13,15 @@ please check out Tables and Notifications sample page.<br>
 To disable pjax at side menu add 'no-pjax' class, for example at Secured Page menu<br>
 For more information about jquery-pjax, <a href="https://www.npmjs.com/package/jquery-pjax" target="jquery-pjax">Click Here</a>.
 </p>
+{if isset($extensioncheck)}
+<p>
+<b>Required PHP Extensions :</b><br>
+{foreach from=$extensioncheck key=$extname item=$extstatus}
+<b>{$extname}</b> : {if $extstatus}Enabled <i class="fa fa-check text-success"></i>{else} Not Available <i class="fa fa-times text-danger"></i>{/if}<br>
+{/foreach}<br>
+<small class="text-muted"><i>please check your PHP extensions settings in php.ini</i></small>
+</p>
+{/if}
 {/block}  
 {block name=scriptcontent}
 
