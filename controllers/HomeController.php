@@ -44,6 +44,11 @@ class HomeController extends Controller
 			"mcrypt" => extension_loaded('mcrypt')
 		];		
 
+		// sample to read environment variables
+		$sampleEnvConfig = getenv("BANTINGAN3_SAMPLECUSTOM_SETTINGS");
+		$this->viewBag->sampleEnvConfig = json_decode($sampleEnvConfig); // decode json string to object
+
+
 		return $this->View();
 	}		
 

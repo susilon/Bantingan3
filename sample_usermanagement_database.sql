@@ -32,3 +32,6 @@ CREATE TABLE `users` (
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `user_email` (`user_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='user data';
+
+INSERT INTO `users` (`session_id`, `user_name`, `user_password_hash`, `user_email`, `user_active`, `user_deleted`, `user_account_type`, `user_has_avatar`, `user_remember_me_token`, `user_creation_timestamp`, `user_suspension_timestamp`, `user_last_login_timestamp`, `user_failed_logins`, `user_last_failed_login`, `user_activation_hash`, `user_password_reset_hash`, `user_password_reset_timestamp`, `user_provider_type`, `user_last_failed_logins`, `user_uuid`) VALUES
+(NULL,	'demo',	'$2y$10$I2VfgDxGj7PaVDANjb5XNOBKS17god7ONk04yxds3K25Ub7RgNIPy',	'demo@demo.com',	1,	0,	1,	0,	NULL,	1422205178,	NULL,	1636991467,	0,	NULL,	NULL,	NULL,	NULL,	'DEFAULT',	1613018715,	'655681BA-095A-4A60-8E4F-BDADF98695DF')

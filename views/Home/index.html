@@ -22,6 +22,14 @@ For more information about jquery-pjax, <a href="https://www.npmjs.com/package/j
 <small class="text-muted"><i>please check your PHP extensions settings in php.ini</i></small>
 </p>
 {/if}
+{if isset($sampleEnvConfig)}
+<p>
+Load custom settings from environment variables<br>
+{$sampleEnvConfig->samplekey1}<br>
+{$sampleEnvConfig->samplekey2}<br>
+{$sampleEnvConfig->samplekey3}
+</p>
+{/if}
 {/block}  
 {block name=scriptcontent}
 

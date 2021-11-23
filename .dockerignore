@@ -10,4 +10,5 @@ templates_c/
 
 #Ignoring dockerfile
 Dockerfile
+docker-compose.yml
 .dockerignore

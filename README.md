@@ -17,7 +17,8 @@ For usermanagement demo, create new empty database for usermanagement, then run 
 We provided Dockerfile, for Docker image building.<br>
 docker build -t image-tag-name .<br>
 example :<br>
-docker build -t susilon/bantingan3-app .
+docker build -t susilon/bantingan3-app .<br><br>
+Sample docker-compose also available.
 
 ### Environment Variable Example
 Example of change config file value with environment variable and JSON string value :<br>
