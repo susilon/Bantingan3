@@ -40,8 +40,7 @@ class HomeController extends Controller
 			"pdo" => extension_loaded('pdo'),
 			"gd" => extension_loaded('gd'),
 			"mbstring" => extension_loaded('mbstring'),
-			"zip" => extension_loaded('zip'),
-			"mcrypt" => extension_loaded('mcrypt')
+			"zip" => extension_loaded('zip')			
 		];		
 
 		// sample to read environment variables
