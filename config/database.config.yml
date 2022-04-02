@@ -14,3 +14,10 @@ usermanagement:
   password: root_password
   database: your_second_database_name
 
+# sample for sql server connection
+#sqlserverdb: 
+#  type: sqlsrv
+#  server: your_sql_server_address
+#  user: your_sql_server_username
+#  password: your_sql_server_password
+#  database: your_sql_server_database_name
