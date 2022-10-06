@@ -44,7 +44,7 @@ function configFromEnv($key, $config) {
 	if ($newconfig != false) {
 		$newconfig = json_decode($newconfig, true);
 		foreach ($newconfig as $key => $newvalue) {
-			$config[$key] = envVariableMapping($config[$key], $newvalue??$config[$key]);
+			$config[$key] = envVariableMapping($config[$key]??null, $newvalue??$config[$key]??null);
 		}				
 	} 
 	

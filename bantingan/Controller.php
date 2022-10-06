@@ -209,9 +209,9 @@ class Controller
 		$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
 		$spreadsheet = $reader->loadFromString($html);
 
-		$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');		
+		$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');		
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment; filename="'.$fileName.'.xls"');
+		header('Content-Disposition: attachment; filename="'.$fileName.'.xlsx"');
 		$writer->save("php://output");
 		exit();
 	}
