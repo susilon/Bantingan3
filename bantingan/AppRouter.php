@@ -92,7 +92,7 @@ sample route.config
 					if (!isset($routevalue["action"])) {
 						exit('Action parameter not set at route '.$key);
 					}
-					$parameter = implode("/", $routevalue["parameter"]);					
+					$parameters = implode("/", $routevalue["parameter"]);					
 				} else {
 					if (isset($routevalue["wildcard"]) && $routevalue["wildcard"] == true) {
 						// enable wildcard parameters
