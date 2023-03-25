@@ -40,21 +40,23 @@ class Model extends \RedBeanPHP\SimpleModel
         // need to check if redbeans already started
         if (!isset($GLOBALS['redbeans'])) 
         {            
-            //require_once __DIR__.'/../'.APPLICATION_SETTINGS["RedBeanPHP_Path"].'rb.php';
-
+            $dbfreeze = APPLICATION_SETTINGS["RedBeanPHP_Freeze"]??false;
             foreach ($this->dbConnection as $key => $dbsettings) {   
-            if ($dbsettings["type"] == "sqlite")
-                {
-                    R::addDatabase($key,$dbsettings["type"].':'.$dbsettings["server"],$dbsettings["user"],$dbsettings["password"],APPLICATION_SETTINGS["RedBeanPHP_Freeze"]);    
-                } else if ($dbsettings["type"] == "postgresql" || $dbsettings["type"] == "mysql")    
-                {                                               
-                    R::addDatabase($key,$dbsettings["type"].':host='.$dbsettings["server"].";dbname=".$dbsettings["database"],$dbsettings["user"],$dbsettings["password"],APPLICATION_SETTINGS["RedBeanPHP_Freeze"]);
-                } else if ($dbsettings["type"] == "sqlsrv")
-                {                                         
-                    R::addDatabase($key,$dbsettings["type"].':Server='.$dbsettings["server"].";Database=".$dbsettings["database"],$dbsettings["user"],$dbsettings["password"],APPLICATION_SETTINGS["RedBeanPHP_Freeze"]);                        
-                } else {                        
-                    R::addDatabase($key,$dbsettings["type"].':host='.$dbsettings["server"].";dbname=".$dbsettings["database"],$dbsettings["user"],$dbsettings["password"],APPLICATION_SETTINGS["RedBeanPHP_Freeze"]);
-                }
+                // check if no existing key
+                if (!isset(R::$toolboxes[$key])) {
+                    if ($dbsettings["type"] == "sqlite")
+                    {
+                        R::addDatabase($key,$dbsettings["type"].':'.$dbsettings["server"],$dbsettings["user"],$dbsettings["password"],$dbfreeze);    
+                    } else if ($dbsettings["type"] == "postgresql" || $dbsettings["type"] == "mysql")    
+                    {                                               
+                        R::addDatabase($key,$dbsettings["type"].':host='.$dbsettings["server"].";dbname=".$dbsettings["database"],$dbsettings["user"],$dbsettings["password"],$dbfreeze);
+                    } else if ($dbsettings["type"] == "sqlsrv")
+                    {                                         
+                        R::addDatabase($key,$dbsettings["type"].':Server='.$dbsettings["server"].";Database=".$dbsettings["database"],$dbsettings["user"],$dbsettings["password"],$dbfreeze);                        
+                    } else {
+                        R::addDatabase($key,$dbsettings["type"].':host='.$dbsettings["server"].";dbname=".$dbsettings["database"],$dbsettings["user"],$dbsettings["password"],$dbfreeze);
+                    }
+                } 
             }
                    
             $GLOBALS['redbeans'] = true;
@@ -70,16 +72,14 @@ class Model extends \RedBeanPHP\SimpleModel
         }
     }
 
-    private function setConnection()
+    private function setConnection($selectedDB=null)
     {
         if (!isset($this->selectedDB))
         {
             $this->selectedDB = "default";
-        }
-        $selecteddb = $this->selectedDB;
-        $this->dbType = $this->dbConnection[$selecteddb]["type"];
-        //$GLOBALS['dbType'] = $this->dbType;
-        R::selectDatabase($this->selectedDB);
+        }        
+        $this->dbType = $this->dbConnection[$selectedDB??$this->selectedDB]["type"];        
+        R::selectDatabase($selectedDB??$this->selectedDB);
     }
 
     private function close()
@@ -271,5 +271,21 @@ class Model extends \RedBeanPHP\SimpleModel
 
     private function exportAll($listbean) {
         return R::exportAll($listbean);
+    }
+
+    private function transaction($function) {
+        return R::transaction($function);
+    }
+
+    private function begintrans() {
+        R::begin();
+    }
+
+    private function committrans() {
+        R::commit();
+    }
+
+    private function rollbacktrans() {
+        R::rollback();
     }
 }

@@ -21,6 +21,11 @@ use Smarty;
 class PageGenerator
 {	
 	public $viewBag;
+	public $viewHtml;
+	public $smarty;
+	public $contents;
+	public $baseUrl;
+	public $baseController;
 
 	public function __construct()
 	{

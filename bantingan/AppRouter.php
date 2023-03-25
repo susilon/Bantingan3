@@ -130,8 +130,9 @@ sample route.config
 		$matcher = new UrlMatcher($routes, $context);
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-		$parameters = $matcher->match($path);	
-		$parameters["parameters"] = explode("/", $parameters["parameters"]);			
-		return $parameters;
+		$route = $matcher->match($path);	
+		$route["parameters"] = explode("/", $route["parameters"]??'');	
+
+		return $route;
 	}
 }

@@ -23,83 +23,8 @@ namespace Bantingan;
 
 require 'vendor/autoload.php';
 
-use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Yaml\Exception\ParseException;
-
-// ENV reader helper
-function envVariableMapping($oldvalue, $newvalue) {
-	if (is_array($oldvalue)) {
-		foreach ($oldvalue as $key => $value) {
-			$oldvalue[$key] = envVariableMapping($value, $newvalue[$key]??$value);
-		}	
-	} else {
-		$oldvalue = $newvalue;
-	}
-	
-	return $oldvalue;
-}
-
-function configFromEnv($key, $config) {		
-	$newconfig = getenv("BANTINGAN3_".strtoupper($key));
-	if ($newconfig != false) {
-		$newconfig = json_decode($newconfig, true);
-		foreach ($newconfig as $key => $newvalue) {
-			$config[$key] = envVariableMapping($config[$key]??null, $newvalue??$config[$key]??null);
-		}				
-	} 
-	
-	return $config;
-}
-
-// load configuration
-try {
-	$webconfigfile = @file_get_contents(__DIR__ .'/../config/web.config.yml');
-    if ($webconfigfile === FALSE) {
-		exit("Configuration File Not Found");
-	} else {
-		$webconfig = Yaml::parse($webconfigfile);
-	}
-
-	if (!isset($webconfig)) {
-		exit("Configuration File Error");
-	}
-
-	foreach ($webconfig as $key => $settings) {
-		if ($key == 'load_settings' ) {
-			foreach ($settings as $settingsname => $settingsfile) {
-				$settingscontent = @file_get_contents(__DIR__ .'/../config/'.$settingsfile);	
-				if ($settingscontent === FALSE) {
-					exit("Additional Configuration File Not Found: ".$settingsfile);
-				}
-				$settingsvalue = null;
-				$settingsvalue = Yaml::parse($settingscontent);
-				// read from environment variables
-				$settingsvalue = configFromEnv($settingsname, $settingsvalue);
-				// or read from files				
-				define(strtoupper($settingsname), $settingsvalue); 
-			}	
-		} else {			
-			// read from environment variables
-			$settings = configFromEnv($key, $settings);			
-			define(strtoupper($key), $settings);
-		}
-	}		
-} catch (ParseException $exception) {    
-	exit('Unable to parse the config file: '.$exception->getMessage());
-}
-
-// load default language
-$defaultlanguage = APPLICATION_SETTINGS["Language"];
-if (isset($_GET["l"])) {	
-	$defaultlanguage = $_GET["l"];	// override language from querystring l
-}
-if(file_exists('config/language/'.$defaultlanguage.'.php')) {	 
-	// load language file	
-	require 'config/language/'.$defaultlanguage.'.php';
-} else {
-	// back to default
-	require 'config/language/'.APPLICATION_SETTINGS["Language"].'.php';
-}
+// load settings
+Settings::LoadFromPath(__DIR__ .'/../config/web.config.yml');
 
 // start the application
 $application = new Applications(); 

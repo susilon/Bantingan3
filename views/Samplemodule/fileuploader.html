@@ -1,0 +1,25 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+<h3>Modules</h3>
+<p>This demo use FileUpload class in Modules\Common\FileHandler\FileUpload.<br>
+<p>
+    <h5>File Upload Demo </h5>
+    {if isset($uploadMessage)} 
+    Upload Info : <br>
+    {json_encode($uploadMessage)}
+    <br>
+    Upload Result :<br>
+    {json_encode($uploadResult)}
+    {else}
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <input type="file" name="fileUpload" class="form-control-file" id="fileUploadSample">
+        </div>
+        <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Submit</button>
+      </form>
+    {/if}
+</p>
+{/block}  
+{block name=scriptcontent}
+
+{/block}  

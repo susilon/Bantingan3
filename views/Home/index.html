@@ -13,6 +13,9 @@ please check out Tables and Notifications sample page.<br>
 To disable pjax at side menu add 'no-pjax' class, for example at Secured Page menu<br>
 For more information about jquery-pjax, <a href="https://www.npmjs.com/package/jquery-pjax" target="jquery-pjax">Click Here</a>.
 </p>
+<p>
+    Your PHP version : <b>{phpversion()}</b>
+</p>
 {if isset($extensioncheck)}
 <p>
 <b>Required PHP Extensions :</b><br>
@@ -24,7 +27,7 @@ For more information about jquery-pjax, <a href="https://www.npmjs.com/package/j
 {/if}
 {if isset($sampleEnvConfig)}
 <p>
-Load custom settings from environment variables<br>
+Loaded custom settings from environment variables :<br>
 {$sampleEnvConfig->samplekey1}<br>
 {$sampleEnvConfig->samplekey2}<br>
 {$sampleEnvConfig->samplekey3}

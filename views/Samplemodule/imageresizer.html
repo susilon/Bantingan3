@@ -1,0 +1,38 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+<h3>Modules</h3>
+<p>This demo use FileUpload class at Modules\Common\FileHandler\FileUpload<br>
+  and ImageResizer class at Modules\Common\ImageHandler\ImageResizer<br>
+<p>
+    <h5>File Image Upload Demo </h5>
+    {if isset($filename)}
+    The upload process create resized images in uploads directory,<br>
+    but this following images are resized on demand from original images, not from resized image files.<br>
+    With ImageResizer you can resize image into new file, or directly outputting resized image from http requests.
+    <div class="row">
+      <div class="col-12">
+        <b>Small Image</b><br>
+        <img src="{$baseUrl}/samplemodule/imageviewer/{$filename}/small">
+      </div>
+      <div class="col-12">
+        <b>Medium Image</b><br>
+        <img src="{$baseUrl}/samplemodule/imageviewer/{$filename}/medium">
+      </div>
+      <div class="col-12">
+        <b>large Image</b><br>
+        <img src="{$baseUrl}/samplemodule/imageviewer/{$filename}/large">
+      </div>
+    </div>           
+    {else}
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <input type="file" accept="image/*" name="fileUpload" class="form-control-file" id="fileUploadSample">
+        </div>
+        <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Submit</button>
+      </form>
+    {/if}
+</p>
+{/block}  
+{block name=scriptcontent}
+
+{/block}  

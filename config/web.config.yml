@@ -1,6 +1,6 @@
 # Basic application settings
 application_settings :
-  SiteTitle : Bantingan 3.0 # Site Title variable as default Page Title, set $pageTitle viewbag at controller to override
+  SiteTitle : Bantingan 3.1 # Site Title variable as default Page Title, set $pageTitle viewbag at controller to override
   Controllers : controllers # Location of controllers file
   Models : models # Location of models file
   Views : views # Location of views file  

@@ -23,7 +23,7 @@ class Controller
 
 	public $fileName;
 	public $paperSize;
-	public $pageOrientation;	
+	public $pageOrientation;
 
 	public $isGET = false;
 	public $isPOST = false;
@@ -46,7 +46,7 @@ class Controller
 
 		//try	{
 			$classFunction = array($this,BANTINGAN_ACTION_NAME);			
-			$method = 	BANTINGAN_ACTION_NAME;	
+			$method = BANTINGAN_ACTION_NAME;	
 
 			if (!method_exists($this, BANTINGAN_ACTION_NAME)) {			
 				throw new \Exception('Method does not exists', 404);			
@@ -124,7 +124,7 @@ class Controller
 		// instantiate and use the dompdf class
 		$dompdf = new \Dompdf\Dompdf();
 		$dompdf->load_html($html);
-		$dompdf->set_paper($this->paperSize, $this->pageOrientation);
+		$dompdf->set_paper($this->paperSize??'A4', $this->pageOrientation??'Portrait');
 		
 		$options = $dompdf->getOptions();
 		$options->setIsRemoteEnabled(true);
@@ -149,7 +149,7 @@ class Controller
 		// instantiate and use the dompdf class
 		$dompdf = new \Dompdf\Dompdf();
 		$dompdf->load_html($html);
-		$dompdf->set_paper($this->paperSize, $this->pageOrientation);
+		$dompdf->set_paper($this->paperSize??'A4', $this->pageOrientation??'Portrait');
 		
 		$options = $dompdf->getOptions();
 		$options->setIsRemoteEnabled(true);
@@ -208,6 +208,7 @@ class Controller
 		$html = $this->Page($viewPathArg);
 		$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
 		$spreadsheet = $reader->loadFromString($html);
+		unset($reader);
 
 		$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');		
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -242,7 +243,7 @@ class Controller
 	}
 
 	// return as  json
-	protected function Json($data, $option=null)
+	protected function Json($data, $option = 0)
 	{
 		header('Content-Type: application/json');
 		exit(json_encode($data, $option));

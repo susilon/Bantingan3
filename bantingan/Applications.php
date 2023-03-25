@@ -140,7 +140,12 @@ class Applications
 			$errorPage->viewBag->errorCode = $errorException->getCode();
 			$errorPage->viewBag->errorMessage = $errorException->getMessage();
 
-			$errorPage->Render($controllerName.$methodName);
+			try {
+				$errorPage->Render($controllerName.$methodName);
+			}
+			catch(\Exception $err) {          	
+				echo "Sorry, resources not found!<br>".$errorException->getMessage();
+			}
 		} 
 
 		$this->closeDBConnection();	

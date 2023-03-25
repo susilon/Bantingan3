@@ -1,0 +1,27 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+<h3>Modules</h3>
+<p>Add your own class in modules directory, and use it in the code by put use directive.<br>
+    This will help you to reuse your code, from any Controller or Model.
+</p>
+<p>
+    Example:
+    <h5>Using CSVFileReader </h5>
+    We included sample module CSVFileReader class in Modules\Common\CSVFileHandler directory,<br>
+    This class have one static method Read, to read CSV file and will output the header and list data in array,<br>
+    to get the header : $result["header"],<br>
+    to get the list data : $result["data"],<br>
+    sample code :<br><br>
+    <pre>
+    use Modules\Common\CSVFileHandler\CSVFileReader;
+
+    $result = CSVFileReader::Read($csvfilepath, true);
+
+    $header = $result["header"];
+    $listdata = $result["data"];
+    </pre>
+</p>
+{/block}  
+{block name=scriptcontent}
+
+{/block}  
