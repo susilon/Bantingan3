@@ -37,17 +37,21 @@ class SamplemoduleController extends Controller
 		return $this->View();
 	}
 
+    private function validatedirectory($path) {
+        if (!is_dir($pathtosave)) {
+            $old = umask(0);
+            mkdir($pathtosave, 0775, true);
+            umask($old);
+        }
+    }
+
     public function fileuploader()
 	{
         // form handler
         if (isset($_FILES) && count($_FILES) > 0) {
             $pathtosave = __DIR__.'/../uploads/';
             // make sure directory is available
-            if (!is_dir($pathtosave)) {
-                $old = umask(0);
-                mkdir($pathtosave, 0775, true);
-                umask($old);
-            }
+            $this->validatedirectory($pathtosave);
 
             // save uploaded file
             $uploadresult = FileUpload::Save($_FILES["fileUpload"], $pathtosave);
@@ -64,11 +68,7 @@ class SamplemoduleController extends Controller
         if (isset($_FILES) && count($_FILES) > 0) {
             $pathtosave = __DIR__.'/../uploads/';
             // make sure directory is available
-            if (!is_dir($pathtosave)) {
-                $old = umask(0);
-                mkdir($pathtosave, 0775, true);
-                umask($old);
-            }
+            $this->validatedirectory($pathtosave);
 
             // save uploaded csv file
             $uploadresult = FileUpload::Save($_FILES["fileUpload"], $pathtosave);            
@@ -88,11 +88,8 @@ class SamplemoduleController extends Controller
         if (isset($_FILES) && count($_FILES) > 0) {
             $pathtosave = __DIR__.'/../uploads/images/';
             // make sure directory is available
-            if (!is_dir($pathtosave)) {
-                $old = umask(0);
-                mkdir($pathtosave, 0775, true);
-                umask($old);
-            }
+            $this->validatedirectory($pathtosave);
+
             // save uploaded file
             $uploadresult = FileUpload::Save($_FILES["fileUpload"], $pathtosave);
             if ($uploadresult['success']) {
@@ -128,13 +125,17 @@ class SamplemoduleController extends Controller
     {         
         // sample to outputting resized image directly from original image source
         $imagefilepath = __DIR__.'/../uploads/images/'.$filename;
-        $option = 
-        [
-            "small" => [ "maxheight" => 60],
-            "medium" => [ "maxheight" => 120],
-            "large" => [ "maxheight" => 300],
-        ];
-
-        return ImageResizer::View($imagefilepath, $option[$size]??[ "maxheight" => 600]);
+        if (file_exists($imagefilepath)) {
+            $option = 
+            [
+                "small" => [ "maxheight" => 60],
+                "medium" => [ "maxheight" => 120],
+                "large" => [ "maxheight" => 300],
+            ];
+    
+            return ImageResizer::View($imagefilepath, $option[$size]??[ "maxheight" => 600]);
+        } else {
+            die("File not found!");
+        }
     }
 }
