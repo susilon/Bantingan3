@@ -25,7 +25,7 @@ class Session
  	public function __construct(){
 		// Instantiate new Database object		
         // select db from dbconnection.config
-		$this->model = new Model("session");        
+		$this->model = new Model();        
 
 		// Set handler to overide SESSION
 		session_set_save_handler(
@@ -119,11 +119,7 @@ class Session
 		$old = time() - $max;
 
 		try {
-			$sessionData = $this->model->find("access < ?", [ $old ]);
-			if (isset($sessionData))
-			{
-				$this->trash($sessionData);
-			}
+			$this->model->execsql("DELETE FROM sessions WHERE access < ?", [ $old ]);
 		}
 		catch (\Exception $ex)
 		{
