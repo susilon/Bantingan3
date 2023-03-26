@@ -38,9 +38,9 @@ class SamplemoduleController extends Controller
 	}
 
     private function validatedirectory($path) {
-        if (!is_dir($pathtosave)) {
+        if (!is_dir($path)) {
             $old = umask(0);
-            mkdir($pathtosave, 0775, true);
+            mkdir($path, 0775, true);
             umask($old);
         }
     }
