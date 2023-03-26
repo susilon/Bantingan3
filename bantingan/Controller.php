@@ -137,8 +137,7 @@ class Controller
 
 		$fileName = $this->fileName?$this->fileName:BANTINGAN_ACTION_NAME;
 
-		$dompdf->stream($fileName.".pdf", array("Attachment" => false));	         
-		exit;       
+		$dompdf->stream($fileName.".pdf", array("Attachment" => false));
 	}
 
 	// file pdf download
@@ -162,8 +161,7 @@ class Controller
 
 		$fileName = $this->fileName?$this->fileName:BANTINGAN_ACTION_NAME;
 
-		$dompdf->stream($fileName.".pdf", array("Attachment" => true));	           
-		exit;     
+		$dompdf->stream($fileName.".pdf", array("Attachment" => true));
 	}
 
 	/**
@@ -196,7 +194,7 @@ class Controller
         $dataJson->message = $message;
         $dataJson->data = $data;
 
-		exit(json_encode($dataJson, $option));
+		echo json_encode($dataJson, $option);
 	}
 
 
@@ -215,7 +213,7 @@ class Controller
 		header('Content-Disposition: attachment; filename="'.$fileName.'.xlsx"');
 		header('Cache-Control: max-age=0');
 		$writer->save("php://output");
-		exit();
+		//exit();
 	}
 
 	// redirect to other action
@@ -232,21 +230,21 @@ class Controller
 			}
 		}							
 		header("Location: ".$newUrl);
-		throw new \Exception("save exit", 200); 
+		//throw new \Exception("save exit", 200); 
 		//echo $newUrl; 		
 	}
 
 	protected function RedirectToURL($url)
 	{
 		header("Location: ".$url);
-		throw new \Exception("save exit", 200);  
+		//throw new \Exception("save exit", 200);  
 	}
 
 	// return as  json
 	protected function Json($data, $option = 0)
 	{
 		header('Content-Type: application/json');
-		exit(json_encode($data, $option));
+		echo json_encode($data, $option);
 	}
 
 	protected function JsonGz($data, $option=null)
@@ -255,7 +253,6 @@ class Controller
 		header('Content-Type: text/plain');
 		header('Content-Encoding: gzip');
 		echo gzencode(json_encode($data, $option));
-		exit;
 	}
 
 	protected function CSVView($data, $withheader, $delimiter=null, $enclosure=null)
@@ -273,7 +270,6 @@ class Controller
 		}
 		
 		fclose($file);
-		exit;
 	}
 
 	protected function CSVFile($data, $withheader, $filename, $delimiter=null, $enclosure=null)

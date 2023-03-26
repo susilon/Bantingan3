@@ -64,30 +64,36 @@ mail_settings :
       // clear previous message
       $("#result-message").text('');
 
-      // change icon to rotating icon
-      $("#send-email").find(".fa").removeClass("fa-paper-plane");
-      $("#send-email").find(".fa").addClass("fa-circle-o-notch");
-      $("#send-email").find(".fa").addClass("rotate-image");
-
       // call API to send email
-      $.post( "{$baseUrl}/api/sendemaildemo", { recipient_email : $("#email-field").val() }, function( data ) {
-        // change icon back to original icon
-        $("#send-email").find(".fa").removeClass("rotate-image");
-        $("#send-email").find(".fa").removeClass("fa-circle-o-notch");
-        $("#send-email").find(".fa").addClass("fa-paper-plane");
-
-        if (data.success) {
-          $("#result-message").text(data.messages);
-          $("#result-message").addClass('text-success');
-        } else {
-          $("#result-message").text(data.messages);
-          $("#result-message").addClass('text-danger');
-        }
+      if ($("#email-field").val() != "") {
+        // change icon to rotating icon
+        $("#send-email").find(".fa").removeClass("fa-paper-plane");
+        $("#send-email").find(".fa").addClass("fa-circle-o-notch");
+        $("#send-email").find(".fa").addClass("rotate-image");
         
-      })
-      .fail(function() {
-        alert( "error calling API" );
-      });      
+        $.post( "{$baseUrl}/api/sendemaildemo", { recipient_email : $("#email-field").val() }, function( data ) {
+          // change icon back to original icon
+          $("#send-email").find(".fa").removeClass("rotate-image");
+          $("#send-email").find(".fa").removeClass("fa-circle-o-notch");
+          $("#send-email").find(".fa").addClass("fa-paper-plane");
+
+          if (data.success) {
+            $("#result-message").text(data.messages);
+            $("#result-message").addClass('text-success');
+          } else {
+            $("#result-message").text(data.messages);
+            $("#result-message").addClass('text-danger');
+          }
+          
+        })
+        .fail(function() {
+          alert( "error calling API" );
+        });      
+      } else {
+        $("#result-message").text('Email address cannot be empty!');
+        $("#result-message").addClass('text-danger');
+      }
+      
       return false;
     });    
   });
