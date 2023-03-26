@@ -46,6 +46,7 @@ PDF generator : https://github.com/dompdf/dompdf<br>
 Spreadsheet : https://github.com/PHPOffice/PhpSpreadsheet<br>
 Mailer : https://github.com/PHPMailer/PHPMailer<br>
 Captcha : https://github.com/Gregwar/Captcha<br>
+Datatables : https://github.com/DataTables/DataTables<br>
 
 TODO :<br>
 Documentation.<br>
