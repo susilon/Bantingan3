@@ -21,11 +21,24 @@ use Bantingan\Model;
 class Session 
 {
 	private $model;
+	private $tablename = APPLICATION_SETTINGS["Session_DB_Tablename"]??"sessions";
 
  	public function __construct(){
 		// Instantiate new Database object		
         // select db from dbconnection.config
-		$this->model = new Model();        
+		$this->model = new Model();
+		$isexists = $this->model->getcell("SHOW TABLES LIKE '".$this->tablename."'");
+		if ($isexists != $this->tablename) {
+			die("To use Sessions in DB please create sessions table first!<br>
+You can set session table name in web.config.yml file under application_settings : Session_DB_Tablename
+<pre>
+CREATE TABLE IF NOT EXISTS `".$this->tablename."` (
+	`id` varchar(32) NOT NULL,
+	`access` int(10) unsigned DEFAULT NULL,
+	`data` text,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;</pre>");
+		}
 
 		// Set handler to overide SESSION
 		session_set_save_handler(
@@ -42,7 +55,7 @@ class Session
 	}
 
 	private function _getsession($id) {			
-		return $this->model->getrow("select id, access, data from sessions where id=?", [ $id ]);
+		return $this->model->getrow("select id, access, data from ".$this->tablename." where id=?", [ $id ]);
 	}
 
 	/**
@@ -83,9 +96,9 @@ class Session
 			$sessionData = $this->_getsession($id);
 			if ($sessionData != [])
 			{				
-				$this->model->execsql("UPDATE sessions SET access=?, data=? WHERE id=?",[$access, $data, $id]);
+				$this->model->execsql("UPDATE ".$this->tablename." SET access=?, data=? WHERE id=?",[$access, $data, $id]);
 			} else {				
-				$this->model->execsql("INSERT INTO sessions VALUES (?,?,?)", [$id, $access, $data] );	
+				$this->model->execsql("INSERT INTO ".$this->tablename." VALUES (?,?,?)", [$id, $access, $data] );	
 			}
 
 			return true;
@@ -102,7 +115,7 @@ class Session
 	 */
 	public function _destroy($id){
 		try {
-			$sessionData = $this->model->execsql("DELETE FROM sessions WHERE id = ?", [ $id ]);
+			$sessionData = $this->model->execsql("DELETE FROM ".$this->tablename." WHERE id = ?", [ $id ]);
 		}
 		catch (\Exception $ex)
 		{
@@ -119,7 +132,7 @@ class Session
 		$old = time() - $max;
 
 		try {
-			$this->model->execsql("DELETE FROM sessions WHERE access < ?", [ $old ]);
+			$this->model->execsql("DELETE FROM ".$this->tablename." WHERE access < ?", [ $old ]);
 		}
 		catch (\Exception $ex)
 		{

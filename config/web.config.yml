@@ -11,6 +11,7 @@ application_settings :
   SharedViewFolder : Shared/
   ErrorFileTemplate : error.html
   Session_DB: false # Session data stored in DB
+  Session_DB_Tablename : sessions
   Cookie_Secret_Key: abcdefg
   Cookie_Runtime : 
   Cookie_Domain : 
