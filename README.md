@@ -35,7 +35,18 @@ Value : { "SiteTitle":"Bantingan Docker","DefaultController":"Home"}<br>
 Example of database_settings :<br>
 Environment Variable Key : BANTINGAN3_DATABASE_SETTINGS<br>
 Value : {"default":{"server":"db","user":"root","password":"root","database":"maindb"},"usermanagement":<br>{"type":"mysql","server":"db","user":"root","password":"root","database":"memberdb"}}<br>
-<br>
+
+### Credits
+HTML template : https://github.com/flatlogic/sing-app<br>
+Routing : https://github.com/symfony/routing<br>
+YAML parser : https://github.com/symfony/yaml<br>
+Page templating : https://github.com/smarty-php/smarty<br>
+ORM : https://github.com/RedBeanPHP<br>
+PDF generator : https://github.com/dompdf/dompdf<br>
+Spreadsheet : https://github.com/PHPOffice/PhpSpreadsheet<br>
+Mailer : https://github.com/PHPMailer/PHPMailer<br>
+Captcha : https://github.com/Gregwar/Captcha<br>
+
 TODO :<br>
 Documentation.<br>
 Sample of Model files.
