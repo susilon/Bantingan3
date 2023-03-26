@@ -25,7 +25,7 @@ namespace Controllers;
 
 use Bantingan\Controller;
 
-use Susilon\PHPLogin\Login;
+use Modules\Common\PHPLogin\Login;
 
 class RegistrationController extends Base\UserController
 {
@@ -46,7 +46,7 @@ class RegistrationController extends Base\UserController
 				// info page
 				$this->flash("infoTitle","Registration Success");
 				$this->flash("infoMessage", join("<br/>",$registration->messages));
-				$this->flash("infoLink",$this->baseUrl."login");
+				$this->flash("infoLink",$this->baseUrl."/login");
 				$this->flash("infoLinkTitle","Back To Login Page");
 				$this->flash("pageTitle","Registration Success");
 				return $this->RedirectToAction('info','home');
@@ -89,7 +89,7 @@ class RegistrationController extends Base\UserController
 		// info page
 		$this->flash("infoTitle",$success?MESSAGE_VERIFICATION_MAIL_SENT:MESSAGE_VERIFICATION_MAIL_NOT_SENT);
 		$this->flash("infoMessage", join("<br/>",$success?$registration->messages:$registration->errors));
-		$this->flash("infoLink",$this->baseUrl."login");
+		$this->flash("infoLink",$this->baseUrl."/login");
 		$this->flash("infoLinkTitle","Back To Login Page");
 		$this->flash("pageTitle","Resend Email");
 		return $this->RedirectToAction('info','home');
@@ -98,7 +98,7 @@ class RegistrationController extends Base\UserController
 	public function testinfo() {
 		$this->flash("infoTitle","Judul Info ini");
 		$this->flash("infoMessage", "Isi pesan yang harusnya panjang");
-		$this->flash("infoLink",$this->baseUrl."login");
+		$this->flash("infoLink",$this->baseUrl."/login");
 		$this->flash("infoLinkTitle","Back To Login Page");
 		return $this->RedirectToAction('','info');
 	}

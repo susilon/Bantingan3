@@ -63,6 +63,13 @@
             {/if}                  
             </div>
           </div>
+          <pre class="mt-2 mb-2">
+User registration will create user data in users table with default user_active = 0.
+
+If you setup the mail settings and login settings, it will send email activation to the users email entered,
+
+if mail settings and login settings are not set properly, you still can manually set user_active to 1 to activate the user.
+</pre>
         </form>
         <div class="row" style="margin-top: auto; padding: 1.25rem;">
           <div class="col-12"><a href="{$baseUrl}/home/tnc">Terms & Conditions</a></div>

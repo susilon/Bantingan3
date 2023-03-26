@@ -88,17 +88,24 @@ class AuthController extends Base\UserController
 
 	public function captcha()
 	{		
+		if (explode(".",phpversion())[0] == '8') {
+			// Gregwar\Captcha would raise some PHP8 deprecated warning
+			// so we disabled it for a while
+			error_reporting(E_ERROR);
+		}
+
 		$captcha = new CaptchaBuilder();	
 		$captcha->setDistortion(false);
 		$captcha->setInterpolation(false);
-        $captcha->build(
-            200,
-            60
-        );		
+		$captcha->build(
+			200,
+			60
+		);	
 
 		$_SESSION['registration']['captcha'] = $captcha->getPhrase();
 
         header('Content-type: image/jpeg');
         $captcha->output(60);
 	}
+
 }

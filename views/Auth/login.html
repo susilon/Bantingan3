@@ -36,7 +36,11 @@
               <a type="button" class="btn btn-link px-0" href="{$baseUrl}/resetpasswordrequest">Forgot password?</a> <span class="btn">or</span><br>
             {/if}
             <hr/>
-              <p class="text-muted">Not register yet? <a href="{$baseUrl}/registration">Sign Up</a></p>              
+              <p class="text-muted">Not register yet? <a href="{$baseUrl}/registration">Sign Up</a></p>
+              <pre>
+The login system will read to users table, you can click Sign Up link if you don't have user registered.
+
+If the REDBEAN_FREEZE option is false in config then the users table will be automatically created if not exists.
             </div>  
             
             <div class="col-12 col-lg-8">

@@ -24,6 +24,8 @@ use Bantingan\Controllers;
 use Bantingan\Model;
 use Bantingan\PageGenerator;
 
+use Modules\Common\SQLSession\Session;
+
 class Applications
 {	
 	private $controllername;
@@ -39,7 +41,7 @@ class Applications
 			{
 				if (APPLICATION_SETTINGS["Session_DB"]) // if true
 				{
-					$session = new \Susilon\SQLSession\Session(); // session stored in mysql
+					$session = new Session(); // session stored in mysql
 				} else {
 					session_start();
 				}

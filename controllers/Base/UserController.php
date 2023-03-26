@@ -24,8 +24,8 @@ THE SOFTWARE.
 namespace Controllers\Base;
 
 use Bantingan\Controller;
-use Susilon\PHPLogin\Login;
-use Susilon\PHPLogin\Registration;
+use Modules\Common\PHPLogin\Login;
+use Modules\Common\PHPLogin\Registration;
 
 /**
  * Sample of Parent Controller

@@ -1,6 +1,6 @@
 {
-    "name": "susilon/disman",
-    "description": "Display Manager",
+    "name": "susilon/bantingan3",
+    "description": "Bantingan 3 PHP framework",
     "type": "project",
     "require": {
         "php": "^7.2",
@@ -10,11 +10,11 @@
         "dompdf/dompdf": "^2.0",
         "phpoffice/phpspreadsheet": "^1.16",
         "phpmailer/phpmailer": "^6.2",
-        "gregwar/captcha": "^1.1",
+        "gregwar/captcha": "^1.2",
         "symfony/yaml": "^5.2"
     },
     "autoload": {
-        "classmap": ["bantingan","vendor/susilon"],
+        "classmap": ["bantingan"],
         "psr-4": {
             "Controllers\\" : "controllers",
             "Models\\" : "models",

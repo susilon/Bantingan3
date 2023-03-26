@@ -30,7 +30,7 @@ use Bantingan\Model;
 use Models;
 
 // user mailer to send email
-use Susilon\Mailer\Mail;
+use Modules\Common\Mailer\Mail;
 
 // please note that only the first letter of controller name and the word Controller must be capitalized
 // you can set custom route in route config

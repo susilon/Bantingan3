@@ -112,4 +112,32 @@ class DemoController extends Controller
 			return $this->View();
 		}		
 	}
+
+	public function csvdemo() {
+		$this->viewBag->activeMenu = "menu-csv";
+		// render array of data into csv file
+		$samplerow = [
+			"Name" => "John Doe",
+			"Address" => "California",
+			"Phone" => "1-234-56789",
+			"Company" => "Bantingan",
+			"Title" => "President Director",
+		];
+
+		$sampledata = [];
+		for ($i = 0; $i < 10; $i++) {
+			$sampledata[] = $samplerow;
+		}		
+
+		// set the csv withheader by true or false
+		$withheader = isset($_GET["withheader"]) && $_GET["withheader"]=="true";
+		if (isset($_GET["download"]) && $_GET["download"] == "true") {
+			return $this->CSVFile($sampledata, $withheader, "democsvfile");
+		} else if (isset($_GET["download"]) && $_GET["download"] == "false") {
+			return $this->CSVView($sampledata, $withheader);			
+		} else {
+			// return main page
+			return $this->View();
+		}	
+	}
 }

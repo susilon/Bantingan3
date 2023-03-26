@@ -257,5 +257,31 @@ class Controller
 		echo gzencode(json_encode($data, $option));
 		exit;
 	}
+
+	protected function CSVView($data, $withheader, $delimiter=null, $enclosure=null)
+	{
+		$file = fopen('php://output', 'w');
+		
+		if ($withheader) {
+			$keys = array_keys($data[0]);
+			fputcsv($file, $keys);
+		}
+
+		foreach ($data as $row) 
+		{
+		  fputcsv($file, $row);
+		}
+		
+		fclose($file);
+		exit;
+	}
+
+	protected function CSVFile($data, $withheader, $filename, $delimiter=null, $enclosure=null)
+	{		
+		header('Content-Type: text/csv');
+		header('Content-Disposition: attachment; filename="'.$filename.'.csv"');
+		
+		return $this->CSVView($data, $withheader, $delimiter, $enclosure);
+	}
 	
 }

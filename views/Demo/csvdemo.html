@@ -1,0 +1,14 @@
+{extends file="../Shared/singapp.master.html"}
+{block name=bodycontent}
+This is a demonstration for outputting CSV file,<br>
+<hr>
+Download :<br>
+<a href="{$baseUrl}/demo/csvdemo?download=true&withheader=true">Click Here to download CSV file with header</a><br>
+<a href="{$baseUrl}/demo/csvdemo?download=true&withheader=false">Click Here to download CSV file without header</a><br>
+View : <br>
+<a href="{$baseUrl}/demo/csvdemo?download=false&withheader=true" target="_csvdemo">Click Here to view CSV data with header</a><br>
+<a href="{$baseUrl}/demo/csvdemo?download=false&withheader=false" target="_csvdemo">Click Here to view CSV data without header</a>
+{/block}  
+{block name=scriptcontent}
+
+{/block}  
